@@ -1,3 +1,4 @@
+/* global AlgoSigner */
 import React from 'react'
 import playImg from '../../../assets/play.jpg'
 import earnImg from '../../../assets/earn_free_coins.jpg'
@@ -8,15 +9,44 @@ import swapImg from '../../../assets/cross_chain_swapping.jpg'
 import BodyTile from '../../sub_components/BodyTile'
 import ConnectButton from '../../sub_components/ConnectButton'
 import Swal from "sweetalert2";
+import { useState, useCallback } from "react";
 
 
 const Home = () => {
 
-    const connectWalletHandleClick = () => {
+    const connectWalletHandleClick = useCallback(async () => {
         console.log("Connect Wallet Button Clicked");
 
         if (typeof AlgoSigner !== 'undefined') {
-            
+            try {
+                const r = await AlgoSigner.connect();
+                const response = JSON.stringify(r, null, 2);
+                console.log(response)
+                if (response == "{}") {
+                    const r = await AlgoSigner.accounts({
+                        ledger: 'TestNet'
+                    });
+                    var accounts = JSON.stringify(r, null, 2);
+                    Swal.fire({
+                        title: 'Wallets',
+                        type: 'success',
+                        text: accounts
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Warning',
+                        type: 'warning',
+                        text: response.message
+                    })
+                }
+            } catch (e) {
+                console.error(e);
+                Swal.fire({
+                    title: 'Error',
+                    type: 'warning',
+                    text: JSON.stringify(e, null, 2)
+                })
+            }
         } else {
             Swal.fire({
                 title: 'Confirm',
@@ -25,8 +55,8 @@ const Home = () => {
                 showCancelButton: true
             }).then(result => {
                 if (result.dismiss != 'cancel') {
-                    window.open("https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm?hl=en-US",'_blank', 'noopener,noreferrer');   
-                }                
+                    window.open("https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm?hl=en-US", '_blank', 'noopener,noreferrer');
+                }
             }).catch(error => {
                 // when promise rejected...
                 Swal.fire({
@@ -36,7 +66,7 @@ const Home = () => {
                 });
             });
         }
-    }
+    })
 
     return (
         <div className="body-part custom-border">
