@@ -6,13 +6,42 @@ import interestImg from '../../../assets/earn_interest.jpg'
 import casinoImg from '../../../assets/casino.png'
 import swapImg from '../../../assets/cross_chain_swapping.jpg'
 import BodyTile from '../../sub_components/BodyTile'
+import ConnectButton from '../../sub_components/ConnectButton'
+import Swal from "sweetalert2";
 
 
 const Home = () => {
 
+    const connectWalletHandleClick = () => {
+        console.log("Connect Wallet Button Clicked");
+
+        if (typeof AlgoSigner !== 'undefined') {
+            
+        } else {
+            Swal.fire({
+                title: 'Confirm',
+                type: 'success',
+                text: 'AlgoSigner is not installed, Would you install AlgoSigner?',
+                showCancelButton: true
+            }).then(result => {
+                if (result.dismiss != 'cancel') {
+                    window.open("https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm?hl=en-US",'_blank', 'noopener,noreferrer');   
+                }                
+            }).catch(error => {
+                // when promise rejected...
+                Swal.fire({
+                    title: 'Error',
+                    type: 'warning',
+                    text: 'AlgoSigner is not installed',
+                });
+            });
+        }
+    }
+
     return (
         <div className="body-part custom-border">
-            <div className="connect_btn"><span>Connect Wallet</span></div>
+            {/* <div className="connect_btn"><span>Connect Wallet</span></div> */}
+            <ConnectButton title={'Connect Wallet'} handleClick={connectWalletHandleClick}/>
 
             <div className="row mt-5">
                 <div className="col-lg-6">
