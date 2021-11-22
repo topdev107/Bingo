@@ -1,9 +1,8 @@
 import React from 'react'
 
-class ConnectButton extends React.Component {   
-    
+class ConnectButton extends React.Component {    
     render() {
-        return (
+        return (        
             <div className="connect_btn" onClick={() => this.props.handleClick()}><span>{this.props.title}</span></div>
         );
     }
