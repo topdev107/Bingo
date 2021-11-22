@@ -1,5 +1,4 @@
 import React from "react";
-//import "bootstrap/dist/css/bootstrap.min.css";
 import SideBar from "./components/sidebar/SideBar";
 import Content from "./components/content/Content";
 import isMobile from 'react-device-detect';
