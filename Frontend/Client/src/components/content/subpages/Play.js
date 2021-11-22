@@ -1,10 +1,9 @@
-import React from 'react'
-import playImg from '../../../assets/game1.jpg'
+import React from 'react';
 
 const Play = () => {
     return (
         <div className="body-part text-align-center">
-            <img className="big_dash_img" src={playImg} />
+            <img className="big_dash_img" src="./assets/game1.jpg" />
         </div >
     )
 }

@@ -1,22 +1,11 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from '../../assets/bingo_logo.png'
 import {
-  faHome,
-  faBriefcase,
-  faPaperPlane,
-  faQuestion,
-  faImage,
-  faCopy,
   faCoins,
-  faCreditCard,
-  faTimes,
-  faGifts,
-  faGamepad
+  faCreditCard, faGamepad, faGifts, faHome, faQuestion, faTimes
 } from "@fortawesome/free-solid-svg-icons";
-import SubMenu from "./SubMenu";
-import { Nav, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
+import React from "react";
+import { Button, Nav } from "react-bootstrap";
 
 class SideBar extends React.Component {
 
@@ -32,7 +21,7 @@ class SideBar extends React.Component {
           >
             <FontAwesomeIcon icon={faTimes} pull="right" size="xs" />
           </Button>
-          <img src={logo} alt="logo" width="220" height="80" />
+          <img src="./assets/bingo_logo.png" alt="logo" width="220" height="80" />
         </div>
 
         <Nav className="flex-column pt-2">

@@ -4,10 +4,10 @@
     align-items: stretch;
 }
 
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-@import "https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700";
+/* @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import "https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700"; */
 body {
-    /*font-family: 'Poppins', sans-serif;*/
+    /* font-family: 'Poppins', sans-serif; */
     font-family: 'Nunito Sans', sans-serif;
     /*background: #fafafa;*/
     background-color: #f5f9fc;
@@ -32,7 +32,7 @@ a:focus {
     background: #354052;
     color: #adb5bd;
     margin-left: -250px;
-    transition: all 0.5s;
+    transition: all 0.2s;
 }
 
 .sidebar.is-open {
@@ -155,7 +155,7 @@ li a.dropdown-toggle::after {
 
 .head_part {
     height: 400px;
-    background-image: url("assets/blockchain.jpeg");
+    background-image: url("./assets/blockchain.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
