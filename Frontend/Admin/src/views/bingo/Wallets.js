@@ -11,6 +11,42 @@ import Swal from "sweetalert2";
 
 const Wallets = () => {
 
+    const fetchData = useCallback(async () => {
+        axios({
+            method: 'get',
+            url: "http://localhost:5000/api/v1/admin/wallets",
+        })
+            .then((res) => {
+                if (res.data.status == "success") {
+                    var rs = [];
+                    var wallets = res.data.data;
+                    wallets.forEach(element => {
+                        rs.push(
+                            {
+                                id: element._id,
+                                address: element.address,
+                                connected_on: element.published_date
+                            }
+                        )
+                    });
+
+                    setRows(rs);
+                } else {
+                    Swal.fire({
+                        title: "Wallets",
+                        text: JSON.stringify(res.data),
+                    });
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    title: "Warning",
+                    type: "warning",
+                    text: err
+                });
+            })
+    });
+
     const rowKeyGetter = (row) => {
         return row.id;
     }
@@ -55,7 +91,8 @@ const Wallets = () => {
         });
     }
 
-    const [rows, setRows] = useState(() => createRows(50));
+    //const [rows, setRows] = useState(() => createRows(50));
+    const [rows, setRows] = useState(() => fetchData());
     const [isLoading, setIsLoading] = useState(false);
 
     async function handleScroll(event) {
