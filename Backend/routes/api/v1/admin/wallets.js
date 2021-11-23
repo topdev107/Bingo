@@ -8,7 +8,7 @@ const Wallet = require("../../../../models/Wallet");
 
 router.get('/', (req, res) => {
     Wallet.find()
-    .then(wallets => res.json(wallets))
+    .then(wallets => res.json({"status": "success", "data": wallets}))
     .catch(err => res.status(404).json(err));
 });
 

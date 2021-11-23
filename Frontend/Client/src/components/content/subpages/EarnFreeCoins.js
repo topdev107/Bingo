@@ -4,7 +4,6 @@ import BodyTile from '../../sub_components/BodyTile'
 const EarnFreeCoins = () => {
     return (
         <div className="body-part">
-
             <div className="row mt-5">                
                 <div className="col-lg-6">
                     <BodyTile
