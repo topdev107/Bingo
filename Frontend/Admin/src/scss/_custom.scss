@@ -28,6 +28,19 @@
     height: 80vh;
 }
 
+.workable-content {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 50px;;
+}
+
+.overflow-scrollable {
+    height: 85%;
+    overflow: auto;
+}
+
 .rootClassname {
     display       : flex;
     flex-direction: column;

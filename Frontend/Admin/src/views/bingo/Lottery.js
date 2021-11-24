@@ -76,7 +76,7 @@ const Lottery = () => {
         },
         {
             key: 'timestamp',
-            name: 'timestamp',
+            name: 'Timestamp',
             width: 250,
             sortable: true
         }

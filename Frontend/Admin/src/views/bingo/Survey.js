@@ -86,7 +86,7 @@ const Survey = () => {
         return {
             id: `${index + 1}`,
             question: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            timestamp: "2021-11-22"
+            Timestamp: "2021-11-22"
         };
     }
 
