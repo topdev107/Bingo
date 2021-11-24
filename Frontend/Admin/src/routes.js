@@ -4,6 +4,8 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Wallets = React.lazy(() => import('./views/bingo/Wallets'))
 const Wallets_test = React.lazy(() => import('./views/bingo/Wallets_test'))
 const Survey = React.lazy(() => import('./views/bingo/Survey'))
+const Play = React.lazy(() => import('./views/bingo/Play'))
+const Lottery = React.lazy(() => import('./views/bingo/Lottery'))
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -59,6 +61,8 @@ const routes = [
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/admin/wallets', name: 'Wallets', component: Wallets },
   { path: '/admin/survey', name: 'Survey', component: Survey },
+  { path: '/admin/play', name: 'Survey', component: Play },
+  { path: '/admin/lottery', name: 'Survey', component: Lottery },
   { path: '/base', name: 'Base', component: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', component: Accordion },
   { path: '/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },

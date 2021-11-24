@@ -10,22 +10,22 @@ import DataGrid from 'react-data-grid';
 import Swal from "sweetalert2";
 
 
-const Survey = () => {
+const Lottery = () => {
 
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/surveys",
+            url: "http://localhost:5000/api/v1/admin/lotterys",
         })
             .then((res) => {
                 if (res.data.status == "success") {
                     var rs = [];
-                    var surveys = res.data.data;
-                    surveys.forEach(element => {
+                    var lotterys = res.data.data;
+                    lotterys.forEach(element => {
                         rs.push(
                             {
-                                id: element._id,
-                                question: element.question,
+                                id: element._id,           
+                                lottery_id: element.lottery_id,                 
                                 created_at: element.published_date
                             }
                         )
@@ -34,7 +34,7 @@ const Survey = () => {
                     setRows(rs);
                 } else {
                     Swal.fire({
-                        title: "Surveys",
+                        title: "Lottery",
                         text: JSON.stringify(res.data),
                     });
                 }
@@ -70,8 +70,8 @@ const Survey = () => {
             width: 100
         },
         {
-            key: 'question',
-            name: 'Questions',
+            key: 'lottery_id',
+            name: 'LotteryID',
             resizable: true,
         },
         {
@@ -146,7 +146,7 @@ const Survey = () => {
 
         switch (columnKey) {
             case 'id':
-            case 'question':
+            case 'lottery_id':
             case 'created_at':
                 sortedRows = sortedRows.sort((a, b) => a[columnKey].localeCompare(b[columnKey]));
                 break;
@@ -157,27 +157,11 @@ const Survey = () => {
 
     const [selectedRows, onSelectedRowsChange] = useState(() => new Set());
 
-    const handleClick = () => {
-        Swal.fire({
-            title: "Add Question",
-            input: "What is your name?"
-        })
-            .then((value) => {
-                //Swal.fire(`You typed: ${value}`);
-            })
-    }
-
     return (
         <CRow>
             <CCol xs={12}>
                 <CCard className="mb-4">
                     <CCardBody>
-                        <div className="d-grid gap-3 d-md-flex justify-content-md-end mb-3">
-                            <CButton color="success" className="me-md-2" onClick={handleClick}>
-                                Add
-                            </CButton>
-                        </div>
-
                         <DataGrid
                             className="t_height_78vh"
                             columns={columns}
@@ -201,4 +185,4 @@ const Survey = () => {
     );
 }
 
-export default Survey
+export default Lottery

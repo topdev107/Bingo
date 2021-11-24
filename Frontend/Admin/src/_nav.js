@@ -44,6 +44,18 @@ const _nav = [
     to: '/admin/survey',
     icon: <CIcon icon={cilFindInPage} customClassName="nav-icon" />,
   },
+  {
+    component: CNavItem,
+    name: 'Lottery',
+    to: '/admin/lottery',
+    icon: <CIcon icon={cilCreditCard} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Play',
+    to: '/admin/play',
+    icon: <CIcon icon={cilFindInPage} customClassName="nav-icon" />,
+  },
   // {
   //   component: CNavItem,
   //   name: 'Colors',
