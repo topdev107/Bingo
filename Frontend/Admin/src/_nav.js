@@ -20,6 +20,10 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
   {
+    component: CNavTitle,
+    name: 'Dashboard',
+  },
+  {
     component: CNavItem,
     name: 'Dashboard',
     to: '/admin/dashboard',
