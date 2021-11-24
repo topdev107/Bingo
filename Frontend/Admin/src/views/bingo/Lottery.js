@@ -75,8 +75,8 @@ const Lottery = () => {
             resizable: true,
         },
         {
-            key: 'created_at',
-            name: 'Created At',
+            key: 'timestamp',
+            name: 'timestamp',
             width: 250,
             sortable: true
         }
@@ -86,7 +86,7 @@ const Lottery = () => {
         return {
             id: `${index + 1}`,
             question: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            created_at: "2021-11-22"
+            timestamp: "2021-11-22"
         };
     }
 
@@ -147,7 +147,7 @@ const Lottery = () => {
         switch (columnKey) {
             case 'id':
             case 'lottery_id':
-            case 'created_at':
+            case 'timestamp':
                 sortedRows = sortedRows.sort((a, b) => a[columnKey].localeCompare(b[columnKey]));
                 break;
             default:

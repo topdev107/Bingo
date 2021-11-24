@@ -1,8 +1,11 @@
+import { cilArrowCircleBottom, cilAt, cilCasino, cilEthernet, cilEyedropper, cilViewModule } from '@coreui/icons';
+import CIcon from '@coreui/icons-react'
 import {
     CCard,
     CCardBody, CCol,
     CRow,
-    CButton
+    CButton,
+    CLink
 } from '@coreui/react';
 import axios from "axios";
 import React, { useCallback, useMemo, useState } from 'react';
@@ -10,22 +13,22 @@ import DataGrid from 'react-data-grid';
 import Swal from "sweetalert2";
 
 
-const Survey = () => {
+const Transactions = () => {
 
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/surveys",
+            url: "http://localhost:5000/api/v1/admin/lotterys",
         })
             .then((res) => {
                 if (res.data.status == "success") {
                     var rs = [];
-                    var surveys = res.data.data;
-                    surveys.forEach(element => {
+                    var lotterys = res.data.data;
+                    lotterys.forEach(element => {
                         rs.push(
                             {
-                                id: element._id,
-                                question: element.question,
+                                id: element._id,           
+                                lottery_id: element.lottery_id,                 
                                 created_at: element.published_date
                             }
                         )
@@ -34,7 +37,7 @@ const Survey = () => {
                     setRows(rs);
                 } else {
                     Swal.fire({
-                        title: "Surveys",
+                        title: "Lottery",
                         text: JSON.stringify(res.data),
                     });
                 }
@@ -66,38 +69,51 @@ const Survey = () => {
     const columns = [
         {
             key: 'id',
-            name: 'No',
-            width: 100
+            name: 'Transaction ID',
+            resizable: true,
         },
         {
-            key: 'question',
-            name: 'Questions',
+            key: 'type',
+            name: 'Type',
             resizable: true,
+            width: 250
         },
         {
             key: 'timestamp',
             name: 'Timestamp',
-            width: 250,
-            sortable: true
+            resizable: true,
+            sortable: true,
+            width: 200
+        },
+        {
+            key: 'detail',
+            name:'',
+            width: 50,
+            formatter({row}) {            
+                return (                
+                    // <CButton onClick={handleClick(row.id)}><CIcon icon={cilEthernet} size={'sm'}/></CButton>
+                    <CLink href="#"><CIcon icon={cilEthernet} size={'sm'}/></CLink>
+                )               
+              }
         }
     ];
 
     const createFakeRowObjectData = (index) => {
-        return {
-            id: `${index + 1}`,
-            question: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            timestamp: "2021-11-22"
+        return {            
+            id: ['R5A4ZTQFTJCMW3IN73F6CYFJEL54HD5RCRTZFXYQYUCILCPHSFVQ', 'QTKGUMG7FF7RIOSUSCC3XRPVFH2MSZZEZDWURSD6ZS4GBVVUIXCA', '6D2NZHDHHEWOJ57ZTIYOM4SJNIN5COB4DHIUG2WYTSNFK5RRLWSA', 'WPM5CD6N4GBZSEXQD4UHDOX5GWNN6UTZZRSQVUIKZNDZERDH3UUA', 'YJQ3MRQSFMEYWU5Z7OOTMSK4Q5VQDJLK37E6ZO2VFIFEJ4JB6RLA'][Math.round(Math.random() * 4)],        
+            type: ['ASA Transfer', 'Application Call', 'Transfer'][Math.round(Math.random() * 2)],
+            timestamp: ['2021-11-21 15:35:55', '2021-11-23 16:50:21', '2021-11-22 04:21:10'][Math.round(Math.random() * 2)],
         };
     }
 
     const createRows = (numberOfRows) => {
         const rows = [];
 
-        // for (let i = 0; i < numberOfRows; i++) {
-        //     rows[i] = createFakeRowObjectData(i);
-        // }
+        for (let i = 0; i < numberOfRows; i++) {
+            rows[i] = createFakeRowObjectData(i);
+        }
 
-        fetchData();
+        //fetchData();
         return rows;
     }
 
@@ -146,7 +162,7 @@ const Survey = () => {
 
         switch (columnKey) {
             case 'id':
-            case 'question':
+            case 'type':
             case 'timestamp':
                 sortedRows = sortedRows.sort((a, b) => a[columnKey].localeCompare(b[columnKey]));
                 break;
@@ -157,27 +173,11 @@ const Survey = () => {
 
     const [selectedRows, onSelectedRowsChange] = useState(() => new Set());
 
-    const handleClick = () => {
-        Swal.fire({
-            title: "Add Question",
-            input: "What is your name?"
-        })
-            .then((value) => {
-                //Swal.fire(`You typed: ${value}`);
-            })
-    }
-
     return (
         <CRow>
             <CCol xs={12}>
                 <CCard className="mb-4">
                     <CCardBody>
-                        <div className="d-grid gap-3 d-md-flex justify-content-md-end mb-3">
-                            <CButton color="success" className="me-md-2" onClick={handleClick}>
-                                Add
-                            </CButton>
-                        </div>
-
                         <DataGrid
                             className="t_height_78vh"
                             columns={columns}
@@ -201,4 +201,4 @@ const Survey = () => {
     );
 }
 
-export default Survey
+export default Transactions

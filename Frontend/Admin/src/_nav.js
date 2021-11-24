@@ -8,6 +8,7 @@ import {
   cilCursor,
   cilDrop,
   cilFindInPage,
+  cilGamepad,
   cilNotes,
   cilParagraph,
   cilPencil,
@@ -48,26 +49,55 @@ const _nav = [
     component: CNavItem,
     name: 'Lottery',
     to: '/admin/lottery',
-    icon: <CIcon icon={cilCreditCard} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Play',
     to: '/admin/play',
-    icon: <CIcon icon={cilFindInPage} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilGamepad} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavItem,
-  //   name: 'Colors',
-  //   to: '/theme/colors',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Typography',
-  //   to: '/theme/typography',
-  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavTitle,
+    name: 'Data',
+  },
+  {
+    component: CNavItem,
+    name: 'Transactions',
+    to: '/admin/transactions',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Paid Free Coins',
+    to: '/admin/paidfreecoins',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Staked Coins',
+    to: '/admin/stakedcoins',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Interesting',
+    to: '/admin/interesting',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  /*
+  {
+    component: CNavItem,
+    name: 'Colors',
+    to: '/theme/colors',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Typography',
+    to: '/theme/typography',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
   {
     component: CNavTitle,
     name: 'Components',
@@ -314,7 +344,7 @@ const _nav = [
         to: '/500',
       },
     ],
-  },
+  }, */
 ]
 
 export default _nav

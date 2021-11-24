@@ -6,6 +6,12 @@ const Wallets_test = React.lazy(() => import('./views/bingo/Wallets_test'))
 const Survey = React.lazy(() => import('./views/bingo/Survey'))
 const Play = React.lazy(() => import('./views/bingo/Play'))
 const Lottery = React.lazy(() => import('./views/bingo/Lottery'))
+const Transactions = React.lazy(() => import('./views/bingo/Transactions'))
+const PaidFreeCoins = React.lazy(() => import('./views/bingo/PaidFreeCoins'))
+const StakedCoins = React.lazy(() => import('./views/bingo/StakedCoins'))
+const Interesting = React.lazy(() => import('./views/bingo/Interesting'))
+const TransactionDetail = React.lazy(() => import('./views/bingo/TransactionDetail'))
+
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -63,6 +69,11 @@ const routes = [
   { path: '/admin/survey', name: 'Survey', component: Survey },
   { path: '/admin/play', name: 'Survey', component: Play },
   { path: '/admin/lottery', name: 'Survey', component: Lottery },
+  { path: '/admin/transactions', name: 'Survey', component: Transactions },
+  { path: '/admin/transactions/id', name: 'Survey', component: TransactionDetail },
+  { path: '/admin/paidfreecoins', name: 'Survey', component: PaidFreeCoins },
+  { path: '/admin/stakedcoins', name: 'Survey', component: StakedCoins },
+  { path: '/admin/interesting', name: 'Survey', component: Interesting },
   { path: '/base', name: 'Base', component: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', component: Accordion },
   { path: '/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },

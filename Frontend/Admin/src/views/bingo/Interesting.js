@@ -10,22 +10,22 @@ import DataGrid from 'react-data-grid';
 import Swal from "sweetalert2";
 
 
-const Survey = () => {
+const Interesting = () => {
 
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/surveys",
+            url: "http://localhost:5000/api/v1/admin/lotterys",
         })
             .then((res) => {
                 if (res.data.status == "success") {
                     var rs = [];
-                    var surveys = res.data.data;
-                    surveys.forEach(element => {
+                    var lotterys = res.data.data;
+                    lotterys.forEach(element => {
                         rs.push(
                             {
-                                id: element._id,
-                                question: element.question,
+                                id: element._id,           
+                                lottery_id: element.lottery_id,                 
                                 created_at: element.published_date
                             }
                         )
@@ -34,7 +34,7 @@ const Survey = () => {
                     setRows(rs);
                 } else {
                     Swal.fire({
-                        title: "Surveys",
+                        title: "Lottery",
                         text: JSON.stringify(res.data),
                     });
                 }
@@ -67,12 +67,20 @@ const Survey = () => {
         {
             key: 'id',
             name: 'No',
-            width: 100
+            width: 100,
+            sortable: true
         },
         {
-            key: 'question',
-            name: 'Questions',
+            key: 'receiver_address',
+            name: 'Receiver Wallet Address',
             resizable: true,
+        },
+        {
+            key: 'amount',
+            name: 'Amount',
+            resizable: true,
+            width: 100,
+            sortable: true
         },
         {
             key: 'timestamp',
@@ -82,22 +90,23 @@ const Survey = () => {
         }
     ];
 
-    const createFakeRowObjectData = (index) => {
-        return {
-            id: `${index + 1}`,
-            question: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            timestamp: "2021-11-22"
+    const createFakeRowObjectData = (index) => {       
+        return {     
+            id: `${index + 1}`,       
+            receiver_address: ['VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ', 'TKYUAFXFKQ2LP7APUDH4XOHF47CWTTUL6BU32BPKUXSCUR52K6XB4TL4JE', 'KAAFZ4HJAO3WXV2ZTWSHNK6LTTPY76TWX2N62BXBV6W7REZY6B4ER72EIM', 'WPM5CD6N4GBZSEXQD4UHDOX5GWNN6UTZZRSQVUIKZNDZERDH3UUA', 'YJQ3MRQSFMEYWU5Z7OOTMSK4Q5VQDJLK37E6ZO2VFIFEJ4JB6RLA'][Math.round(Math.random() * 4)],        
+            amount: ['1', '2', '3', '4', '5'][Math.round(Math.random() * 4)],
+            timestamp: ['2021-11-21 15:35:55', '2021-11-23 16:50:21', '2021-11-22 04:21:10'][Math.round(Math.random() * 2)],
         };
     }
 
     const createRows = (numberOfRows) => {
         const rows = [];
 
-        // for (let i = 0; i < numberOfRows; i++) {
-        //     rows[i] = createFakeRowObjectData(i);
-        // }
+        for (let i = 0; i < numberOfRows; i++) {
+            rows[i] = createFakeRowObjectData(i);
+        }
 
-        fetchData();
+        //fetchData();
         return rows;
     }
 
@@ -146,7 +155,8 @@ const Survey = () => {
 
         switch (columnKey) {
             case 'id':
-            case 'question':
+            case 'receiver_address':
+            case 'amount':
             case 'timestamp':
                 sortedRows = sortedRows.sort((a, b) => a[columnKey].localeCompare(b[columnKey]));
                 break;
@@ -157,27 +167,11 @@ const Survey = () => {
 
     const [selectedRows, onSelectedRowsChange] = useState(() => new Set());
 
-    const handleClick = () => {
-        Swal.fire({
-            title: "Add Question",
-            input: "What is your name?"
-        })
-            .then((value) => {
-                //Swal.fire(`You typed: ${value}`);
-            })
-    }
-
     return (
         <CRow>
             <CCol xs={12}>
                 <CCard className="mb-4">
                     <CCardBody>
-                        <div className="d-grid gap-3 d-md-flex justify-content-md-end mb-3">
-                            <CButton color="success" className="me-md-2" onClick={handleClick}>
-                                Add
-                            </CButton>
-                        </div>
-
                         <DataGrid
                             className="t_height_78vh"
                             columns={columns}
@@ -201,4 +195,4 @@ const Survey = () => {
     );
 }
 
-export default Survey
+export default Interesting

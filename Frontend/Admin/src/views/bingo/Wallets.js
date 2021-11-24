@@ -25,7 +25,7 @@ const Wallets = () => {
                             {
                                 id: element._id,
                                 address: element.address,
-                                connected_at: element.published_date
+                                timestamp: element.published_date
                             }
                         )
                     });
@@ -74,8 +74,8 @@ const Wallets = () => {
             resizable: true,             
         },
         { 
-            key: 'connected_at',
-            name: 'Connected At',
+            key: 'timestamp',
+            name: 'Timestamp',
             width: 250,
             sortable: true 
         }
@@ -85,7 +85,7 @@ const Wallets = () => {
         return {
             id: `${index + 1}`,
             address: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            connected_at: "2021-11-22"
+            timestamp: "2021-11-22"
         };
     }
 
@@ -146,7 +146,7 @@ const Wallets = () => {
         switch (columnKey) {
             case 'id':
             case 'address':
-            case 'connected_at':
+            case 'timestamp':
                 sortedRows = sortedRows.sort((a, b) => a[columnKey].localeCompare(b[columnKey]));
                 break;
             default:
