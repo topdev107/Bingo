@@ -9,23 +9,23 @@ import DataGrid from 'react-data-grid';
 import Swal from "sweetalert2";
 
 
-const Wallets = () => {
+const Survey = () => {
 
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/wallets",
+            url: "http://localhost:5000/api/v1/admin/surveys",
         })
             .then((res) => {
                 if (res.data.status == "success") {
                     var rs = [];
-                    var wallets = res.data.data;
-                    wallets.forEach(element => {
+                    var surveys = res.data.data;
+                    surveys.forEach(element => {
                         rs.push(
                             {
                                 id: element._id,
-                                address: element.address,
-                                connected_at: element.published_date
+                                question: element.question,
+                                created_at: element.published_date
                             }
                         )
                     });
@@ -33,7 +33,7 @@ const Wallets = () => {
                     setRows(rs);
                 } else {
                     Swal.fire({
-                        title: "Wallets",
+                        title: "Surveys",
                         text: JSON.stringify(res.data),
                     });
                 }
@@ -66,16 +66,16 @@ const Wallets = () => {
         {
             key: 'id',
             name: 'No',
-            width: 250
+            width: 100
         },
         { 
-            key: 'address',
-            name: 'Wallet Address',
+            key: 'question',
+            name: 'Questions',
             resizable: true,             
         },
         { 
-            key: 'connected_at',
-            name: 'Connected At',
+            key: 'created_at',
+            name: 'Created At',
             width: 250,
             sortable: true 
         }
@@ -84,8 +84,8 @@ const Wallets = () => {
     const createFakeRowObjectData = (index) => {
         return {
             id: `${index + 1}`,
-            address: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            connected_at: "2021-11-22"
+            question: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
+            created_at: "2021-11-22"
         };
     }
 
@@ -145,8 +145,8 @@ const Wallets = () => {
 
         switch (columnKey) {
             case 'id':
-            case 'address':
-            case 'connected_at':
+            case 'question':
+            case 'created_at':
                 sortedRows = sortedRows.sort((a, b) => a[columnKey].localeCompare(b[columnKey]));
                 break;
             default:
@@ -184,4 +184,4 @@ const Wallets = () => {
     );
 }
 
-export default Wallets
+export default Survey
