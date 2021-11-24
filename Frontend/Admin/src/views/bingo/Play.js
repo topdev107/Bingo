@@ -159,7 +159,7 @@ const Play = () => {
                                         <CIcon icon={cilGamepad} />
                                     </CTableHeaderCell>
                                     <CTableHeaderCell>Title</CTableHeaderCell>
-                                    <CTableHeaderCell>Activity</CTableHeaderCell>
+                                    <CTableHeaderCell width="300">Activity</CTableHeaderCell>
                                 </CTableRow>
                             </CTableHead>
                         </CTable>
