@@ -6,9 +6,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useState, useCallback } from "react";
 
-let baseURL = "http://localhost:5000/api/v1/client/wallets/adds";
-
 const ConnectWalletButton = () => {
+    let url = window.BASE_URL + "/wallets/adds";
+
     const handleClick = useCallback(async () => {
 
         if (typeof AlgoSigner !== "undefined") {
@@ -26,8 +26,9 @@ const ConnectWalletButton = () => {
                     });
                     let accounts = JSON.stringify(r);
 
+                                
                     axios
-                        .post(baseURL, {
+                        .post(url, {
                             wallets: accounts
                         })
                         .then((response) => {

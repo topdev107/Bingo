@@ -14,7 +14,7 @@ const Wallets = () => {
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/wallets",
+            url: window.BASE_URL + "/wallets",
         })
             .then((res) => {
                 if (res.data.status == "success") {

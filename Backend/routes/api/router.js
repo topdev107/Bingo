@@ -1,7 +1,7 @@
 const express = require("express")
 require('express-group-routes');
 
-const wallets = require('./client/wallets');
+const wallets = require('./v1/wallets');
 
 const router = express.Router();
 

@@ -28,6 +28,23 @@
     height: 80vh;
 }
 
+.text_align_center {
+    text-align: center;
+}
+
+.dark_gray_color {
+    color: #27303b;
+}
+
+.no_underline_link:link{
+    text-decoration: none;    
+}
+
+.no_underline_link:hover{
+    text-decoration: underline;    
+}
+
+
 .workable-content {
     position: absolute;
     top: 50px;

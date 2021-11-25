@@ -32,7 +32,7 @@ import {
 } from '@coreui/react';
 import axios from "axios";
 import React, { useCallback } from 'react';
-import avatar1 from 'src/assets/images/avatars/g1.png';
+import avatar1 from 'src/assets/images/avatars/g1.jpg';
 import avatar2 from 'src/assets/images/avatars/g2.jpg';
 import avatar3 from 'src/assets/images/avatars/g3.jpg';
 import avatar4 from 'src/assets/images/avatars/g4.jpg';

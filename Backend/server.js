@@ -7,8 +7,7 @@ var cors = require('cors');
 require("dotenv").config({ path: "./config.env" });
 
 // routes
-const client_router = require('./routes/api/v1/client_router');
-const admin_router = require('./routes/api/v1/admin_router');
+const router = require('./routes/api/router');
 
 const app = express();
 
@@ -27,9 +26,8 @@ app.use(express.urlencoded({
 app.get('/', (req, res) => res.send('Hello world!'));
 
 // use Routes
-app.use('/api/v1/client', client_router);
-app.use('/api/v1/admin', admin_router);
+app.use('/api/v1/', router);
 
 const port = process.env.PORT || 8082;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port}`));
