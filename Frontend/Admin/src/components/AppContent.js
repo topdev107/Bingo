@@ -27,7 +27,8 @@ const AppContent = () => {
               )
             )
           })}
-          <Redirect from="/" to="/admin/dashboard" />
+          <Redirect from="/" to="/admin/login" />
+          <Redirect to="admin/404"/>        
         </Switch>
       </Suspense>
     </CContainer>

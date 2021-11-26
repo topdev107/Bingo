@@ -2,6 +2,7 @@ const express = require("express");
 
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcrypt')
+let Const = require('../../../config/Const')
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.post('/register', async (req, res) => {
 
         // Validate user input
         if (!(username && email && password)) {
-            return res.status(400).json({"status": "error", "message": "All input is required."});
+            return res.status(Const.httpCodeMissingParam).json({"status": "error", "message": "All input is required."});
         }
         
         // check if user already exist
@@ -23,13 +24,13 @@ router.post('/register', async (req, res) => {
         var oldUser = await User.findOne({"username": username});  
 
         if (oldUser) {
-            return res.status(409).json({"status": "error", "message": "Username Already Exist."});
+            return res.status(Const.httpCodeConflict).json({"status": "error", "message": "Username Already Exist."});
         }
 
         var oldUser = await User.findOne({"email": email});
 
         if (oldUser) {
-            return res.status(409).json({"status": "error", "message": "Email Already Exist."});
+            return res.status(Const.httpCodeConflict).json({"status": "error", "message": "Email Already Exist."});
         }
 
         // Encrypt user password
@@ -59,10 +60,10 @@ router.post('/register', async (req, res) => {
         user.token = token;
 
         // return new user
-        return res.status(200).json({"status": "success", "user": user});
+        return res.status(Const.httpCodeSuccess).json({"status": "success", "user": user});
 
     } catch (err) {
-        return res.status(201).json({"status": "error", "message": err})
+        return res.status(Const.httpCodeUnknown).json({"status": "error", "message": err})
     }
 });
 
@@ -72,7 +73,7 @@ router.post('/login', async (req, res) => {
 
         // Validate user input
         if (!(email && password)) {
-            return res.status(400).json({"status": "error", "message": "All input is required."})
+            return res.status(Const.httpCodeMissingParam).json({"status": "error", "message": "All input is required."})
         }
 
         // Validate if user exist in our database
@@ -96,12 +97,12 @@ router.post('/login', async (req, res) => {
             user.token = token;
 
             // user
-            return res.status(200).json({"status": "success", "user": user});
+            return res.status(Const.httpCodeSuccess).json({"status": "success", "user": user});
         }
 
-        return res.status(400).json({"status": "error", "message": "Invalid Credentials."});
+        return res.status(Const.httpCodeWrongParam).json({"status": "error", "message": "Invalid Credentials."});
     } catch (err) {
-        return res.status(201).json({"status": "error", "message": err});
+        return res.status(Const.httpCodeUnknown).json({"status": "error", "message": err});
     }
 });
 

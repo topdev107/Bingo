@@ -2,6 +2,7 @@
 import React from 'react'
 
 import ConnectButton from './ConnectButton';
+import Api, { addWallets } from '../../api/Api';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState, useCallback } from "react";
@@ -26,7 +27,26 @@ const ConnectWalletButton = () => {
                     });
                     let accounts = JSON.stringify(r);
 
-                                
+                    // addWallets(accounts).then((response) => {
+                    //     if (response.data.status === "success") {
+                    //         Swal.fire({
+                    //             title: "Wallets",
+                    //             text: "Successfully Connected",
+                    //         });
+                    //     } else {
+                    //         Swal.fire({
+                    //             title: "Wallets",
+                    //             type: "success",
+                    //             text: JSON.stringify(response.data),
+                    //         });
+                    //     }
+                    // }).catch(err => {
+                    //     Swal.fire({
+                    //         title: "Warning",
+                    //         text: err
+                    //     });
+                    // });
+                
                     axios
                         .post(url, {
                             wallets: accounts
