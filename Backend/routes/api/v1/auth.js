@@ -1,62 +1,108 @@
 const express = require("express");
 
+let jwt = require('jsonwebtoken');
+let bcrypt = require('bcrypt')
+
 const router = express.Router();
 
 const ObjectId = require("mongodb").ObjectId;
 
-const Wallet = require("../../../models/Wallet");
+const User = require("../../../models/User");
 
-router.get('/', (req, res) => {
-    Wallet.find()
-    .then(wallets => res.json({"status": "success", "data": wallets}))
-    .catch(err => res.status(404).json(err));
-});
+router.post('/register', async (req, res) => {
+    try {
+        const {username, email, password} = req.body;
 
-router.post("/add", (req, res) => {
-    Wallet.create(req.body)
-        .then((wallet) => res.json({ status: "success" }))
-        .catch((err) => res.json(err));
-});
+        // Validate user input
+        if (!(username && email && password)) {
+            return res.status(400).json({"status": "error", "message": "All input is required."});
+        }
+        
+        // check if user already exist
+        // Validate if user exist in our database
+        var oldUser = await User.findOne({"username": username});  
 
-router.post("/adds", (req, res) => {
-    var wallets = JSON.parse(req.body.wallets);
-    var addresses = [];
-    wallets.forEach((element) => {
-        addresses.push(element.address);
-    });
+        if (oldUser) {
+            return res.status(409).json({"status": "error", "message": "Username Already Exist."});
+        }
 
-    var newWallets = [];
+        var oldUser = await User.findOne({"email": email});
 
-    Wallet.find({
-        'address': { $in: addresses },
-    })
-        .then((docs) => {
-            if (docs.length > 0) {
-                var docs_addrs = [];
-                docs.forEach((ele) => {
-                    docs_addrs.push(ele.address);
-                })
+        if (oldUser) {
+            return res.status(409).json({"status": "error", "message": "Email Already Exist."});
+        }
 
-                wallets.forEach((ele) => {
-                    if (!docs_addrs.includes(ele.address)) {
-                        newWallets.push(ele);
-                    }
-                });
-            } else {
-                newWallets = wallets;
-            }
-
-            if (newWallets.length > 0) {
-                Wallet.create(newWallets)
-                    .then((wallet) => res.json({ status: "success" }))
-                    .catch((err) => res.json(err));
-            } else {
-                res.json({ status: "success" })
-            }
+        // Encrypt user password
+        encryptedPassword = await bcrypt.hash(password, 10);        
+        
+        // Create user in our database
+        const user = await User.create({
+            'username': username,
+            'email': email,
+            'password': encryptedPassword
         })
-        .catch((err) => {
-            res.json(err);
-        });
+
+        // Create token
+        const token = jwt.sign(
+            {
+                user_id: user._id, 
+                username: username,
+                email: email,                
+            }, 
+            process.env.TOKEN_KEY,
+            {
+                expiresIn: "1h"
+            }
+        );
+        
+        // save user token
+        user.token = token;
+
+        // return new user
+        return res.status(200).json({"status": "success", "user": user});
+
+    } catch (err) {
+        return res.status(201).json({"status": "error", "message": err})
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        // Validate user input
+        if (!(email && password)) {
+            return res.status(400).json({"status": "error", "message": "All input is required."})
+        }
+
+        // Validate if user exist in our database
+        const user = await User.findOne({$or: [{"username": email}, {"email": email}]});
+
+        if (user && (await bcrypt.compare(password, user.password))) {
+            // Create token
+            const token = jwt.sign(
+                {
+                    user_id: user._id,
+                    username: user.username,
+                    email: user.email
+                },
+                process.env.TOKEN_KEY,
+                {
+                    expiresIn: "1h"
+                }
+            );
+
+            // save user token
+            user.token = token;
+
+            // user
+            return res.status(200).json({"status": "success", "user": user});
+        }
+
+        return res.status(400).json({"status": "error", "message": "Invalid Credentials."});
+    } catch (err) {
+        return res.status(201).json({"status": "error", "message": err});
+    }
 });
 
 module.exports = router;
