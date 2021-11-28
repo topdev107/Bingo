@@ -11,6 +11,7 @@
   "author": "topdev511",
   "license": "MIT",
   "dependencies": {
+    "algosdk": "^1.12.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "config": "^3.3.6",

@@ -1,22 +1,16 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { cilMenu } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
   CContainer,
   CHeader,
-  CHeaderBrand,
-  CHeaderDivider,
-  CHeaderNav,
-  CHeaderToggler,
-  CNavLink,
-  CNavItem,
+  CHeaderBrand, CHeaderNav,
+  CHeaderToggler
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
-
-import { AppBreadcrumb } from './index'
-import { AppHeaderDropdown } from './header/index'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { logo } from 'src/assets/brand/logo'
+import { AppHeaderDropdown } from './header/index'
+
 
 const AppHeader = () => {
   const dispatch = useDispatch()
