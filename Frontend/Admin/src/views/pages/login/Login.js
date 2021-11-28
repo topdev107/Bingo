@@ -52,19 +52,17 @@ const Login = () => {
                 email: email,
                 password: password
             })
-                .then((response) => {
+                .then((response) => {                    
                     if (response.status == 200) {
-                        let token = response.data.user.token;
-                        localStorage.setItem("bingo_token", token);                        
+                        let token = response.data.user.token;                        
                         if (checked) {
-                            localStorage.setItem("bingo_email", email);
                             localStorage.setItem("bingo_password", password);
-                            localStorage.setItem("bingo_remember", true);
+                            localStorage.setItem("bingo_remember", "true");                            
                         } else {
-                            localStorage.setItem("bingo_email", "");
                             localStorage.setItem("bingo_password", "");
-                            localStorage.setItem("bingo_remember", false);
-                        }
+                            localStorage.setItem("bingo_remember", "false");                            
+                        }                    
+                        localStorage.setItem("bingo_user", JSON.stringify(response.data.user));
                         window.location = '#/admin/dashboard'
                     } else {
                         let message = response.data.message;
@@ -90,11 +88,18 @@ const Login = () => {
     useEffect(() => {
         var isChecked = localStorage.getItem("bingo_remember");
         if (isChecked == "true") {
-            let email = localStorage.getItem("bingo_email");
-            let password = localStorage.getItem("bingo_password");
-            setEmail(email);
-            setPassword(password);
-            setChecked(true)
+            let user = JSON.parse(localStorage.getItem("bingo_user"));
+            if (user != undefined && user != "") {
+                let password = localStorage.getItem("bingo_password");
+                let email = user.email;
+                setEmail(email);
+                setPassword(password);
+                setChecked(true)
+            } else {
+                setEmail("");
+                setPassword("");
+                setChecked(false);
+            }
         } else {
             setEmail("");
             setPassword("");

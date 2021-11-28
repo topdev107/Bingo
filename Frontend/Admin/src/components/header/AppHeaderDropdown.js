@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CAvatar,
   CBadge,
@@ -23,8 +23,16 @@ import {
 import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
+import { getUsername } from 'src/service/AuthService'
 
 const AppHeaderDropdown = () => {
+
+  const [username, setName] = useState("");
+
+  useEffect(() => {
+    let username = getUsername();
+    setName(username);
+  }, [])
 
   const logout = () => {    
     localStorage.removeItem("bingo_token");   
@@ -34,7 +42,7 @@ const AppHeaderDropdown = () => {
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
         {/* <CAvatar src={avatar8} size="md" /> */}
-        <p>Admin</p>
+        <p>{username}</p>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         {/* <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>

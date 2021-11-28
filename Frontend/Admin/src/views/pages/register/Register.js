@@ -50,7 +50,7 @@ const Register = () => {
                         console.log(response);
                         if (response.status == 200) {
                             let token = response.data.user.token;      
-                            localStorage.setItem("bingo_token", token);          
+                            localStorage.setItem("bingo_user", JSON.stringify(response.data.user));
                             window.location='#/admin/dashboard'                      
                         } else {
                             let message = response.data.message;
