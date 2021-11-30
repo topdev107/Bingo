@@ -62,7 +62,7 @@ const TransactionDetail = () => {
             <CCol xs={12}>
                 <CCard className="mb-4">
                     <CCardBody className="t_height_80vh">
-                        
+                        Transaction Detail 
                     </CCardBody>
                 </CCard>
             </CCol>

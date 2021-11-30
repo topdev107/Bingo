@@ -8,13 +8,13 @@ const Wallet = require("../../../models/Wallet");
 
 router.get('/', (req, res) => {
     Wallet.find()
-    .then(wallets => res.json({"status": "success", "data": wallets}))
+    .then(data => res.json({"status": "success", "data": data}))
     .catch(err => res.status(404).json(err));
 });
 
 router.post("/add", (req, res) => {
     Wallet.create(req.body)
-        .then((wallet) => res.json({ status: "success" }))
+        .then((data) => res.json({ status: "success" }))
         .catch((err) => res.json(err));
 });
 
@@ -49,7 +49,7 @@ router.post("/adds", (req, res) => {
 
             if (newWallets.length > 0) {
                 Wallet.create(newWallets)
-                    .then((wallet) => res.json({ status: "success" }))
+                    .then((data) => res.json({ status: "success" }))
                     .catch((err) => res.json(err));
             } else {
                 res.json({ status: "success" })

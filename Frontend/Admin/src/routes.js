@@ -11,6 +11,8 @@ const PaidFreeCoins = React.lazy(() => import('./views/bingo/PaidFreeCoins'))
 const StakedCoins = React.lazy(() => import('./views/bingo/StakedCoins'))
 const Interesting = React.lazy(() => import('./views/bingo/Interesting'))
 const TransactionDetail = React.lazy(() => import('./views/bingo/TransactionDetail'))
+const AddSurvey = React.lazy(() => import('./views/bingo/AddSurvey'))
+const EditSurvey = React.lazy(() => import('./views/bingo/EditSurvey'))
 
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -67,13 +69,17 @@ const routes = [
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/admin/wallets', name: 'Wallets', component: Wallets },
   { path: '/admin/survey', name: 'Survey', component: Survey },
-  { path: '/admin/play', name: 'Survey', component: Play },
-  { path: '/admin/lottery', name: 'Survey', component: Lottery },
-  { path: '/admin/transactions', name: 'Survey', component: Transactions },
-  { path: '/admin/transactions/id', name: 'Survey', component: TransactionDetail },
-  { path: '/admin/paidfreecoins', name: 'Survey', component: PaidFreeCoins },
-  { path: '/admin/stakedcoins', name: 'Survey', component: StakedCoins },
-  { path: '/admin/interesting', name: 'Survey', component: Interesting },
+  { path: '/admin/play', name: 'Play', component: Play },
+  { path: '/admin/lottery', name: 'Lottery', component: Lottery },
+  { path: '/admin/transactions', name: 'Transactions', component: Transactions },
+  { path: '/admin/transaction_detail', name: 'TransactionDetail', component: TransactionDetail },
+  { path: '/admin/paidfreecoins', name: 'PaidFreeCoins', component: PaidFreeCoins },
+  { path: '/admin/stakedcoins', name: 'StakedCoins', component: StakedCoins },
+  { path: '/admin/interesting', name: 'Interesting', component: Interesting },
+  { path: '/admin/add_survey', name: 'AddSurvey', component: AddSurvey },
+  { path: '/admin/edit_survey', name: 'EditSurvey', component: EditSurvey },
+
+
   { path: '/base', name: 'Base', component: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', component: Accordion },
   { path: '/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },

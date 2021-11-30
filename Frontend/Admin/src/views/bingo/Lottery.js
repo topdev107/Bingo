@@ -82,22 +82,22 @@ const Lottery = () => {
         }
     ];
 
-    const createFakeRowObjectData = (index) => {
+    const createFakeRowObjectData = (index) => {       
         return {
             id: `${index + 1}`,
-            question: 'VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ',
-            timestamp: "2021-11-22"
+            lottery_id: ['VQGNB5ASZEBGFWY7L3DIMUQTOAV3KDTJ4QO7DBP2NHV3IKWPVSHQOFB5RQ', 'TKYUAFXFKQ2LP7APUDH4XOHF47CWTTUL6BU32BPKUXSCUR52K6XB4TL4JE', 'KAAFZ4HJAO3WXV2ZTWSHNK6LTTPY76TWX2N62BXBV6W7REZY6B4ER72EIM', 'WPM5CD6N4GBZSEXQD4UHDOX5GWNN6UTZZRSQVUIKZNDZERDH3UUA', 'YJQ3MRQSFMEYWU5Z7OOTMSK4Q5VQDJLK37E6ZO2VFIFEJ4JB6RLA'][Math.round(Math.random() * 4)],
+            timestamp: ['2021-11-21 15:35:55', '2021-11-23 16:50:21', '2021-11-22 04:21:10'][Math.round(Math.random() * 2)],
         };
     }
 
     const createRows = (numberOfRows) => {
         const rows = [];
 
-        // for (let i = 0; i < numberOfRows; i++) {
-        //     rows[i] = createFakeRowObjectData(i);
-        // }
+        for (let i = 0; i < numberOfRows; i++) {
+            rows[i] = createFakeRowObjectData(i);
+        }
 
-        fetchData();
+        //fetchData();
         return rows;
     }
 

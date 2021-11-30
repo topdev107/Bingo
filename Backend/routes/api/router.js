@@ -5,6 +5,7 @@ const authMiddleware = require('../../middleware/auth');
 const auth = require('./v1/auth');
 const wallets = require('./v1/wallets');
 const tnxs = require('./v1/tnxs')
+const surveys = require('./v1/surveys')
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.group((router) => {
 
     router.use('/wallets', wallets);
     router.use('/tnxs', tnxs);
+    router.use('/surveys', surveys);
 });
 
 

@@ -27,8 +27,8 @@ const Transactions = () => {
                     lotterys.forEach(element => {
                         rs.push(
                             {
-                                id: element._id,           
-                                lottery_id: element.lottery_id,                 
+                                id: element._id,
+                                lottery_id: element.lottery_id,
                                 created_at: element.published_date
                             }
                         )
@@ -87,20 +87,21 @@ const Transactions = () => {
         },
         {
             key: 'detail',
-            name:'',
+            name: '',
             width: 50,
-            formatter({row}) {            
-                return (                
-                    // <CButton onClick={handleClick(row.id)}><CIcon icon={cilEthernet} size={'sm'}/></CButton>
-                    <CLink href="#"><CIcon icon={cilEthernet} size={'sm'}/></CLink>
-                )               
-              }
+            formatter({ row }) {
+                return (
+                    <CLink href={`#/admin/transaction_detail/${row.id}`}>
+                        <CIcon icon={cilEthernet} size={'sm'} />
+                    </CLink>
+                )
+            }
         }
     ];
 
     const createFakeRowObjectData = (index) => {
-        return {            
-            id: ['R5A4ZTQFTJCMW3IN73F6CYFJEL54HD5RCRTZFXYQYUCILCPHSFVQ', 'QTKGUMG7FF7RIOSUSCC3XRPVFH2MSZZEZDWURSD6ZS4GBVVUIXCA', '6D2NZHDHHEWOJ57ZTIYOM4SJNIN5COB4DHIUG2WYTSNFK5RRLWSA', 'WPM5CD6N4GBZSEXQD4UHDOX5GWNN6UTZZRSQVUIKZNDZERDH3UUA', 'YJQ3MRQSFMEYWU5Z7OOTMSK4Q5VQDJLK37E6ZO2VFIFEJ4JB6RLA'][Math.round(Math.random() * 4)],        
+        return {
+            id: ['R5A4ZTQFTJCMW3IN73F6CYFJEL54HD5RCRTZFXYQYUCILCPHSFVQ', 'QTKGUMG7FF7RIOSUSCC3XRPVFH2MSZZEZDWURSD6ZS4GBVVUIXCA', '6D2NZHDHHEWOJ57ZTIYOM4SJNIN5COB4DHIUG2WYTSNFK5RRLWSA', 'WPM5CD6N4GBZSEXQD4UHDOX5GWNN6UTZZRSQVUIKZNDZERDH3UUA', 'YJQ3MRQSFMEYWU5Z7OOTMSK4Q5VQDJLK37E6ZO2VFIFEJ4JB6RLA'][Math.round(Math.random() * 4)],
             type: ['ASA Transfer', 'Application Call', 'Transfer'][Math.round(Math.random() * 2)],
             timestamp: ['2021-11-21 15:35:55', '2021-11-23 16:50:21', '2021-11-22 04:21:10'][Math.round(Math.random() * 2)],
         };

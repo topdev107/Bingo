@@ -1,8 +1,14 @@
+import { cilEthernet } from '@coreui/icons';
+import CIcon from '@coreui/icons-react';
 import {
     CCard,
     CCardBody, CCol,
     CRow,
-    CButton
+    CButton,
+    CLink,
+    CNavLink,
+    CFormInput,
+    CInputGroup
 } from '@coreui/react';
 import axios from "axios";
 import React, { useCallback, useMemo, useState } from 'react';
@@ -12,10 +18,12 @@ import Swal from "sweetalert2";
 
 const Survey = () => {
 
+    const [freecoinvalue, setFreeCoinValue] = useState("")    
+
     const fetchData = useCallback(async () => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/api/v1/admin/surveys",
+            url: window.BASE_URL + "/surveys",
         })
             .then((res) => {
                 if (res.data.status == "success") {
@@ -26,7 +34,7 @@ const Survey = () => {
                             {
                                 id: element._id,
                                 question: element.question,
-                                created_at: element.published_date
+                                timestamp: element.createdAt
                             }
                         )
                     });
@@ -41,7 +49,7 @@ const Survey = () => {
             })
             .catch((err) => {
                 Swal.fire({
-                    title: "Warning",
+                    title: "Error",
                     type: "warning",
                     text: err
                 });
@@ -67,7 +75,8 @@ const Survey = () => {
         {
             key: 'id',
             name: 'No',
-            width: 100
+            width: 200,
+            resizable: true,
         },
         {
             key: 'question',
@@ -79,6 +88,18 @@ const Survey = () => {
             name: 'Timestamp',
             width: 250,
             sortable: true
+        },
+        {
+            key: 'detail',
+            name: '',
+            width: 50,
+            formatter({ row }) {
+                return (
+                    <CLink href={`#/admin/edit_survey/${row.id}`}>
+                        <CIcon icon={cilEthernet} size={'sm'} />
+                    </CLink>
+                )
+            }
         }
     ];
 
@@ -158,13 +179,7 @@ const Survey = () => {
     const [selectedRows, onSelectedRowsChange] = useState(() => new Set());
 
     const handleClick = () => {
-        Swal.fire({
-            title: "Add Question",
-            input: "What is your name?"
-        })
-            .then((value) => {
-                //Swal.fire(`You typed: ${value}`);
-            })
+        window.location = "#/admin/add_survey"
     }
 
     return (
@@ -172,12 +187,34 @@ const Survey = () => {
             <CCol xs={12}>
                 <CCard className="mb-4">
                     <CCardBody>
-                        <div className="d-grid gap-3 d-md-flex justify-content-md-end mb-3">
+                        <div className="col-sm-9 inline-block">
+                            <div className="row align-items-center">
+                                <p className="col-sm-3 align-right">Survey Free Coin Amount : </p>
+                                <div className="col-sm-6">
+                                    <div className="row ">
+                                        <div className="col-sm-4">
+                                            <CFormInput
+                                                className="align-right"
+                                                placeholder="1000"
+                                                aria-label="1000"
+                                                aria-describedby="edit_freecoin_value_btn" 
+                                                disabled/>
+                                        </div>
+                                        <p className="col-sm-3 inline-block">Micro Algos</p>
+                                        <div className="col-sm-4">
+                                            <CButton className="inline-block" type="button" color="success" variant="outline" id="edit_freecoin_value_btn" >
+                                                Edit
+                                            </CButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-3 align-right inline-block">                        
                             <CButton color="success" className="me-md-2" onClick={handleClick}>
                                 Add
                             </CButton>
                         </div>
-
                         <DataGrid
                             className="t_height_78vh"
                             columns={columns}

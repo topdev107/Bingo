@@ -17,7 +17,7 @@ const token = {
  * @return {Promise<*>} pending transaction information
  * @throws Throws an error if the transaction is not confirmed or rejected in the next timeout rounds
  */
- const waitForConfirmation = async function (algodClient, txId, timeout) {
+const waitForConfirmation1 = async function (algodClient, txId, timeout) {
     if (algodClient == null || txId == null || timeout < 0) {
         throw new Error("Bad arguments");
     }
@@ -49,7 +49,23 @@ const token = {
     throw new Error("Transaction " + txId + " not confirmed after " + timeout + " rounds!");
 };
 
-let TnxController = {    
+// Function used to wait for a tx confirmation
+const waitForConfirmation = async function (algodclient, txId) {
+    let response = await algodclient.status().do();
+    let lastround = response["last-round"];
+    while (true) {
+        const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
+        if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
+            //Got the completed Transaction
+            console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+            break;
+        }
+        lastround++;
+        await algodclient.statusAfterBlock(lastround).do();
+    }
+};
+
+let TnxController = {
 
     earnFreeCoins: function earnFreeCoins(req, res) {
         let algodClient = new algosdk.Algodv2(token, baseServer, port);
@@ -76,25 +92,87 @@ let TnxController = {
             };
 
             let signedTxn = algosdk.signTransaction(txn, recoveredAccount.sk);
-            let sendTx = await algodClient.sendRawTransaction(signedTxn.blob).do();        
-            
+            let sendTx = await algodClient.sendRawTransaction(signedTxn.blob).do();
+
             console.log("Transaction : " + sendTx.txId);
             res.json({ 'status': 'success', 'tnx_id': sendTx.txId })
 
-            // let tx = {
-            //     'txId': sendTx.txId,
-            //     'sender_address': recoveredAccount.addr,
-            //     'receiver_address': req.body.receiver_address,
-            //     'type': 'Earn Free Coin'
-            // }
-            // Tnx.create(req.body)
-            //     .then((wallet) => res.json({ status: "success" }))
-            //     .catch((err) => res.json(err));
         })().catch(e => {
             console.log(e);
             res.json({ 'status': 'error', 'error': e })
         });
 
+    },
+
+    createNFT: function createNFT(req, res) {
+
+        let algodClient = new algosdk.Algodv2(token, baseServer, port);
+
+        (async () => {
+
+            var account1_mnemonic = "brisk inch middle fruit alert model never turn denial learn rug deal piece mail census broom real brand wrist machine boil laugh venue above program";
+            var account2_mnemonic = "endorse drift cost because matter tonight wait stumble label craft blouse give road tell blanket prize sad water pioneer crack culture century cycle above arrow";
+            var account3_mnemonic = "annual shiver repair broken amount firm laundry timber crush balance snow wine movie poet inch rich mesh stool garbage limit include that autumn absorb mom";
+
+            var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
+            var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
+            var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
+
+            console.log(recoveredAccount1.addr);
+            console.log(recoveredAccount2.addr);
+            console.log(recoveredAccount3.addr);
+
+            let params = await algodClient.getTransactionParams().do();
+
+            params.fee = 1000;
+            params.flatFee = true;
+            console.log(params);
+            let note = new Uint8Array("Create new NFT");
+
+            let addr = recoveredAccount1.addr;
+
+            let defaultFrozen = false;
+
+            let decimals = 0;
+
+            let totalIssuance = 1000;
+
+            let unitName = "BBGO";
+
+            let assetName = "bbgo";
+
+            let assetURL = "http://someurl";
+
+            let assetMetadataHash = "16efaa3924a6fd9d3a4824799a4ac65d";
+
+            let manager = recoveredAccount2.addr;
+
+            let reserve = recoveredAccount2.addr;
+
+            let freeze = recoveredAccount2.addr;
+
+            let clawback = recoveredAccount2.addr;
+
+            let txn = algosdk.makeAssetCreateTxnWithSuggestedParams(addr, note,
+                totalIssuance, decimals, defaultFrozen, manager, reserve, freeze,
+                clawback, unitName, assetName, assetURL, assetMetadataHash, params);
+
+            let rawSignedTxn = txn.signTxn(recoveredAccount1.sk)
+            let tx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
+            console.log("Transaction : " + tx.txId);
+            let assetID = null;
+            // wait for transaction to be confirmed
+            await waitForConfirmation(algodClient, tx.txId);
+            // Get the new asset's information from the creator account
+            let ptx = await algodClient.pendingTransactionInformation(tx.txId).do();
+            assetID = ptx["asset-index"];
+            console.log("AssetID = " + assetID);
+
+            res.json({'status': 'success', 'AssetID=': assetID})
+        })().catch(e => {
+            console.log(e);
+            res.json({ 'status': 'error', 'error': e })
+        });
     }
 }
 

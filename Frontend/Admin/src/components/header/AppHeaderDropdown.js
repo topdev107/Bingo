@@ -34,8 +34,14 @@ const AppHeaderDropdown = () => {
     setName(username);
   }, [])
 
-  const logout = () => {    
-    localStorage.removeItem("bingo_token");   
+  const logout = () => {
+    let user = JSON.parse(localStorage.getItem("bingo_user"));
+    if (user != undefined && user != "") {
+      user.token = ""
+      localStorage.setItem("bingo_user", JSON.stringify(user));
+    } else {
+      localStorage.setItem("bingo_user", "");
+    }        
   }
 
   return (
@@ -99,7 +105,7 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownDivider /> */}
         <CDropdownItem href="#" onClick={logout}>
-          <CIcon icon={cilLockLocked} className="me-2"/>
+          <CIcon icon={cilLockLocked} className="me-2" />
           Logout
         </CDropdownItem>
       </CDropdownMenu>

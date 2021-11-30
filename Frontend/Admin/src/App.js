@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './scss/style.scss'
-import AuthService, { isLoggedin } from './service/AuthService'
+import { isLoggedin } from './service/AuthService'
 
 const loading = (
   <div className="pt-3 text-center">
@@ -31,7 +31,7 @@ class App extends Component {
             <Route exact path="/admin/forgot_password" name="Forgot Password" render={(props) => <ForgotPassword {...props} />} />
             <Route exact path="/admin/404" name="Page 404" render={(props) => <Page404 {...props} />} />
             <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
-            <Route path="/" name="Home" render={(props) => isLoggedin()? (<DefaultLayout {...props}/>) : (<Redirect to="/admin/login"/>)} />            
+            <Route path="/" name="Home" render={(props) => isLoggedin() ? (<DefaultLayout {...props}/>) : (<Redirect to="/admin/login"/>)} />            
           </Switch>
         </React.Suspense>
       </HashRouter>
