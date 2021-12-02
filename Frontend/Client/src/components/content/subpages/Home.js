@@ -1,14 +1,18 @@
 /* global AlgoSigner */
 import React from "react";
 import BodyTile from "../../sub_components/BodyTile";
+import ConnectMetamask from "../../sub_components/ConnectMetamask";
 import ConnectWalletButton from "../../sub_components/ConnectWalletButton";
 
-const Home = () => {    
+const Home = () => {
 
     return (
         <div className="body-part custom-border">
-            
-            <ConnectWalletButton/>
+
+            <div className="mb-5">
+                {/* <ConnectMetamask /> */}
+            </div>
+            <ConnectWalletButton />
 
             <div className="row mt-5">
                 <div className="col-lg-6">

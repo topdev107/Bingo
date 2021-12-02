@@ -250,3 +250,109 @@ li a.dropdown-toggle::after {
 	background-color: #00090F;
 	color: white;    
 }
+
+/************** Metamask  **************/
+/* .display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+#metamask_modal {
+    
+    width: 370px;
+    position: fixed; 
+    right: 80px; 
+    top: 0; 
+    z-index: 99; 
+    background-color: white; 
+    border-radius: 0px 0px 10px 10px; 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+}
+
+#metamask_container {
+    height: 67px; 
+    background-color: #f2f3f4; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0 20px;
+}
+
+#metamask_container1 {
+    background-color: #29B6AF; border-color: #29B6AF;
+}
+
+#metamask_container2 {
+    padding: 30px;
+}
+
+#metamask_container3 {
+    margin-top: 24px; display: flex; justify-content: center;
+}
+
+#modal-title {
+    text-align: center;
+}
+
+#modal-description {
+    color: rgb(174, 174, 174); text-align: center; white-space: pre-line; margin-top: 5px;
+}
+
+#metamask_container4 {
+    margin: 80px 0 8px;
+}
+#modal-input {
+    border-style: solid; 
+    border-width: 0 0 1px 0; 
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; 
+    padding-bottom: 5px; 
+    border-color: rgb(170, 170, 170); 
+    width: 100%;
+}
+
+#modal-submit {
+    width: 100%;
+}
+
+#recover {
+    color: rgb(150, 150, 150); 
+    font-weight: 600; 
+    font-size: 12px; 
+    text-align: center; 
+    margin-top: 20px;
+}
+
+#metamask-footer {
+    color: rgb(150, 150, 150); 
+    font-weight: 600; 
+    font-size: 12px; 
+    text-align: center; 
+    margin-top: 25px;
+}
+
+input::placeholder {
+    color: rgb(100, 100, 100);
+ }
+
+ textarea,
+ select,
+ input,
+ button {
+    outline: none;
+ }
+
+ .btn {
+    padding: 20px;
+    text-align: center;
+    border-radius: 4px;
+    margin-top: 27px;
+ }
+
+ .btn:hover {
+    background-color: rgb(42, 101, 177);
+    transition: background-color 0.2s;
+    cursor: pointer;
+ } */
